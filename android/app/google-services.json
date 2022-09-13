@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "873824483083",
+    "project_id": "meeja-8f656",
+    "storage_bucket": "meeja-8f656.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:873824483083:android:80b0d7dacde560e5b1140e",
+        "android_client_info": {
+          "package_name": "com.example.meeja"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "873824483083-1q8t11717lrgf1l5o84oab0r4m1i5jqg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQYryTmLKh0XLE6yxplEW2VC3wjF2tCdk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "873824483083-1q8t11717lrgf1l5o84oab0r4m1i5jqg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
