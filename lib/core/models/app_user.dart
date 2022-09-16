@@ -10,8 +10,8 @@ class AppUser {
   // bool? isFirstLogin;
   DateTime? createdAt;
   String? imageUrl;
-  // String? lastMessage;
-  // String? lastMessageAt;
+  String? lastMessage;
+  String? lastMessageAt;
   // int? dayStreak;
   // int? countJournalWords;
   // int? countTotalJournals;
@@ -43,8 +43,8 @@ class AppUser {
     // this.isFirstLogin,
     this.createdAt,
     this.imageUrl,
-    // this.lastMessage,
-    // this.lastMessageAt,
+    this.lastMessage,
+    this.lastMessageAt,
     // this.dayStreak,
     // this.countJournalWords,
     // this.countTotalJournals,
@@ -75,9 +75,9 @@ class AppUser {
     // this.isFirstLogin = json['isFirstLogin'];
     this.createdAt = json['createdAt'].toDate();
     this.imageUrl = json['imageUrl'];
-    // this.lastMessage = json['lastMessage'] ?? '';
+    this.lastMessage = json['lastMessage'] ?? '';
     // this.dayStreak = json['dayStreak'] ?? 0;
-    // this.lastMessageAt = json['lastMessageAt'] ?? '';
+    this.lastMessageAt = json['lastMessageAt'] ?? '';
     // this.countJournalWords = json['countJournalWords'];
     // this.countTotalJournals = json['countTotalJournals'];
     // this.makeProfilePrivate = json['makeProfilePrivate'];
@@ -110,8 +110,8 @@ class AppUser {
       // 'isFirstLogin': this.isFirstLogin,
       'createdAt': this.createdAt,
       'imageUrl': this.imageUrl,
-      // 'lastMessage': this.lastMessage,
-      // 'lastMessageAt': this.lastMessageAt,
+      'lastMessage': this.lastMessage,
+      'lastMessageAt': this.lastMessageAt,
       // 'dayStreak': this.dayStreak,
       // 'countJournalWords': this.countJournalWords,
       // 'countTotalJournals': this.countTotalJournals,

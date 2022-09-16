@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:meeja/ui/screens/chat_screen/chat_screen.dart';
 import 'package:meeja/ui/screens/connections_screen/connections_screen.dart';
+import 'package:meeja/ui/screens/conversation_screens/message_screen.dart';
 import 'package:meeja/ui/screens/profile_screens/profle_screen.dart';
 import 'package:meeja/ui/screens/search_screen/search_screen.dart';
 
@@ -11,7 +11,7 @@ class MainProvider extends ChangeNotifier{
   List<Widget> pages = [
     HomeScreen(),
     SearchScreen(),
-    ChatScreen(),
+    MessageScreen(),
     ConnectionsScreen(),
     ProfileScreen(),
   ];

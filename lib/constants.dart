@@ -144,7 +144,18 @@ List<ItemDetails> kExampleItems = [
       rating: 100),
 ];
 
-
+final textFiledContainerStyle = BoxDecoration(
+  color: Colors.grey[300],
+  borderRadius: BorderRadius.all(Radius.circular(30)),
+  boxShadow: [
+    BoxShadow(
+      color: Colors.grey.withOpacity(0.3),
+      spreadRadius: 2,
+      blurRadius: 3,
+      offset: Offset(0, 2),
+    ),
+  ],
+);
 
 
 TextStyle kAppBarTextStyle = TextStyle(

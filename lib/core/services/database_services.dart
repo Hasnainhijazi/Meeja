@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:meeja/core/models/app_user.dart';
+import 'package:meeja/core/models/conversation.dart';
 import 'package:meeja/core/services/auth_services.dart';
 import 'package:meeja/ui/locator.dart';
 
@@ -48,12 +49,43 @@ class DatabaseServices{
   }
 
   ///
+  /// Upload voice
+  ///
+  uploadVoice(String fileUrl) {
+    try {
+      firebaseFireStore
+          .collection("Recordings").doc().set({"link":fileUrl});
+    } catch (e) {
+      print('Exception $e');
+    }
+  }
+
+  Future<List<String>> getAllRecordings() async {
+    final List<String> RecordingsList = [];
+    try {
+      QuerySnapshot snapshot = await firebaseFireStore.collection('Recordings').get();
+      if (snapshot.docs.length > 0) {
+        snapshot.docs.forEach((element) {
+          RecordingsList.add(element['link']);
+          print("link => ${element['link']}");
+        });
+      } else {
+        print("No data found");
+      }
+    } catch (e) {
+      print('Exception @DatabaseService/getAllRecordings $e');
+    }
+    return RecordingsList;
+  }
+
+  ///
   /// get all app users
   ///
   Future<List<AppUser>> getAllAppUser() async {
     final List<AppUser> appUserList = [];
     try {
-      QuerySnapshot snapshot = await firebaseFireStore.collection('AppUser').where("userEmail", isNotEqualTo: locator<AuthServices>().appUser.userEmail).where('makeProfilePrivate',isEqualTo: false).get();
+      QuerySnapshot snapshot = await firebaseFireStore.collection('AppUser').
+      where("userEmail", isNotEqualTo: locator<AuthServices>().appUser.userEmail).get();
       if (snapshot.docs.length > 0) {
         snapshot.docs.forEach((element) {
           appUserList.add(AppUser.fromJson(element, element.id));
@@ -63,27 +95,7 @@ class DatabaseServices{
         print("No data found");
       }
     } catch (e) {
-      print('Exception @DatabaseService/GetAllUsers $e');
-    }
-    return appUserList;
-  }
-  ///
-  /// get all app users
-  ///
-  Future<List<AppUser>> getAppUsers() async {
-    final List<AppUser> appUserList = [];
-    try {
-      QuerySnapshot snapshot = await firebaseFireStore.collection('AppUser').where('makeProfilePrivate',isEqualTo: false).get();
-      if (snapshot.docs.length > 0) {
-        snapshot.docs.forEach((element) {
-          appUserList.add(AppUser.fromJson(element, element.id));
-          print("getUser => ${element['userName']}");
-        });
-      } else {
-        print("No data found");
-      }
-    } catch (e) {
-      print('Exception @DatabaseService/GetAllUsers $e');
+      print('Exception @DatabaseService/GetAllUserssss $e');
     }
     return appUserList;
   }
@@ -92,66 +104,66 @@ class DatabaseServices{
   ///============== chat ===============///
   ///===================================///
 
-  // addUserMessage(AppUser currentAppUser, String toUserId,
-  //     Conversation conversation, AppUser toAppUser) async {
-  //   try {
-  //     // await firebaseFireStore.collection("Conversations").doc("$fromUserId").set(appUser.toJson());
-  //     // await firebaseFireStore.collection("Conversations").doc("$fromUserId$toUserId").collection("Messages").add(conversation.toJson());
-  //     ///
-  //     /// From User message
-  //     ///
-  //     await firebaseFireStore
-  //         .collection("Conversations")
-  //         .doc("${currentAppUser.appUserId}")
-  //         .collection("Chats")
-  //         .doc("$toUserId")
-  //         .collection("messages")
-  //         .add(conversation.toJson());
-  //     await firebaseFireStore
-  //         .collection("Conversations")
-  //         .doc("${currentAppUser.appUserId}")
-  //         .collection("Chats")
-  //         .doc("$toUserId")
-  //         .set(toAppUser.toJson());
-  //
-  //     ///
-  //     /// to user message
-  //     ///
-  //     await firebaseFireStore
-  //         .collection("Conversations")
-  //         .doc("$toUserId")
-  //         .collection("Chats")
-  //         .doc("${currentAppUser.appUserId}")
-  //         .collection("messages")
-  //         .add(conversation.toJson());
-  //     await firebaseFireStore
-  //         .collection("Conversations")
-  //         .doc("$toUserId")
-  //         .collection("Chats")
-  //         .doc("${currentAppUser.appUserId}")
-  //         .set(currentAppUser.toJson());
-  //   } catch (e) {
-  //     print('Exception@sentUserMessage$e');
-  //   }
-  // }
-  //
-  // ///
-  // /// Get conversation users list
-  // ///
-  // Stream<QuerySnapshot>? getUserConversationList(AppUser appUser) {
-  //   try {
-  //     Stream<QuerySnapshot> snapshot = firebaseFireStore
-  //         .collection("Conversations")
-  //         .doc(appUser.appUserId)
-  //         .collection("Chats")
-  //         .orderBy('lastMessageAt', descending: false)
-  //         .snapshots();
-  //     return snapshot;
-  //   } catch (e) {
-  //     print('Exception@GetUserConversationList$e');
-  //     return null;
-  //   }
-  // }
+  addUserMessage(AppUser currentAppUser, String toUserId,
+      Conversation conversation, AppUser toAppUser) async {
+    try {
+      // await firebaseFireStore.collection("Conversations").doc("$fromUserId").set(appUser.toJson());
+      // await firebaseFireStore.collection("Conversations").doc("$fromUserId$toUserId").collection("Messages").add(conversation.toJson());
+      ///
+      /// From User message
+      ///
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("${currentAppUser.appUserId}")
+          .collection("Chats")
+          .doc("$toUserId")
+          .collection("messages")
+          .add(conversation.toJson());
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("${currentAppUser.appUserId}")
+          .collection("Chats")
+          .doc("$toUserId")
+          .set(toAppUser.toJson());
+
+      ///
+      /// to user message
+      ///
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("$toUserId")
+          .collection("Chats")
+          .doc("${currentAppUser.appUserId}")
+          .collection("messages")
+          .add(conversation.toJson());
+      await firebaseFireStore
+          .collection("Conversations")
+          .doc("$toUserId")
+          .collection("Chats")
+          .doc("${currentAppUser.appUserId}")
+          .set(currentAppUser.toJson());
+    } catch (e) {
+      print('Exception@sentUserMessage$e');
+    }
+  }
+
+  ///
+  /// Get conversation users list
+  ///
+  Stream<QuerySnapshot>? getUserConversationList(AppUser appUser) {
+    try {
+      Stream<QuerySnapshot> snapshot = firebaseFireStore
+          .collection("Conversations")
+          .doc(appUser.appUserId)
+          .collection("Chats")
+          .orderBy('lastMessageAt', descending: false)
+          .snapshots();
+      return snapshot;
+    } catch (e) {
+      print('Exception@GetUserConversationList$e');
+      return null;
+    }
+  }
   //
   //
   // ///

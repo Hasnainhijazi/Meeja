@@ -59,9 +59,9 @@ class EditProfileScreen extends StatelessWidget {
                                 width: 100.w,
                                 decoration: BoxDecoration(
                                     image: DecorationImage(
-                                        image: model.userImage == null
+                                        image: model.locateUser.appUser.imageUrl != null
                                             ? NetworkImage(model.locateUser.appUser.imageUrl!)
-                                            : FileImage(model.userImage!) as ImageProvider,
+                                            : model.userImage != null ? FileImage(model.userImage!) : AssetImage('assets/icons/profile_icon.png')  as ImageProvider,
                                         fit: BoxFit.cover),
                                     shape: BoxShape.circle,
                                     color: kGrey2Color

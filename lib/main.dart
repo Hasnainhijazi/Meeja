@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:meeja/constants.dart';
 import 'package:meeja/ui/locator.dart';
+import 'package:meeja/ui/screens/conversation_screens/message_provider.dart';
 import 'package:meeja/ui/screens/profile_screens/profile_provider.dart';
 import 'package:meeja/ui/screens/splash_screen.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +29,15 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ProfileProvider>(
           create: (context) => ProfileProvider(),
         ),
+        ChangeNotifierProvider<MessageProvider>(
+            create: (context) => MessageProvider(),
+        ),
       ],
       child: GetMaterialApp(
         title: 'Meeja',
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
+          primaryColor: kPrimaryColor,
           fontFamily: kFontFamily
         ),
         home: ScreenUtilInit(

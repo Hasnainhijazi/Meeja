@@ -19,5 +19,19 @@ class DatabaseStorageServices{
     }
   }
 
+  Future<String?> uploadRecording(File file) async{
+    // final imagePath = image.path;
+    try{
+      var reference = _storage.ref().child("Chats/Files/${DateTime.now().microsecondsSinceEpoch}");
+      var uploadImage = reference.putFile(file,SettableMetadata(contentType: 'audio/wav'));
+      TaskSnapshot snapshot = await uploadImage.whenComplete(() => print('Voice Uploaded'));
+      final imageUrl = snapshot.ref.getDownloadURL();
+      return imageUrl;
+    }catch(e){
+      print("Exception@voice upload=> $e");
+      return null;
+    }
+  }
+
 
 }

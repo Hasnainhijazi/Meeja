@@ -114,7 +114,8 @@ class HomeScreen extends StatelessWidget {
 
                 Column(
                   children: List.generate(
-                      model.items.length, (index) => Item(item:model.items[index],filter:model.selectedFilter,showCurrentUsers: true)),
+                      model.items.length, (index) => Item(item:model.items[index],filter:model.selectedFilter,showCurrentUsers: true),
+                  ),
                 ),
               ],
             ),
